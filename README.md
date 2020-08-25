@@ -31,14 +31,13 @@ decision making capabilites and monitor the redis cluster, CPU usage and even Pr
 
 ## Grafana Dashboard
 \
-![redis dashboard image 1](assets/grafana_dashboard_1.png)\
+![redis dashboard image 1](assets/redis_dashboard_1.png)\
 \
-![redis dashboard image 2](assets/grafana_dashboard_2.png)\
+![redis dashboard image 2](assets/redis_dashboard_2.png)\
 \
 ![prometheus dashboard image 1](assets/prometheus_dashboard_1.png)\
 \
 ![prometheus dashboard image 2](assets/prometheus_dashboard_2.png)\
-\
 
 ## Prometheus Dashboard
 
