@@ -1,0 +1,46 @@
+groups:
+- name: common-infra-alerts
+  rules:
+  - alert: InstanceDown
+    expr: up == 0
+    for: 15s
+    labels:
+      severity: 'critical'
+    annotations:
+      description: '[{{ $labels.exporter }}] {{ $labels.instance }} has been down for more than 15s'
+      summary: 'Service {{ $labels.instance }} down'
+  - alert: RedisDown
+    expr: redis_up == 0
+    for: 15s
+    labels:
+      severity: 'critical'
+    annotations:
+      description: '[{{ $labels.exporter }}] {{ $labels.instance }} has been down for more than 15 s'
+      summary: 'Service {{ $labels.instance }} down'
+  - alert: TooManyCommands
+    expr: rate(redis_commands_processed_total[30s]) > 1000
+    for: 15s
+    labels:
+      severity: 'critical'
+    annotations:
+      text: 'Too many commands executed per second'
+      description: '{{ $labels.instance }} getting too many commands per second.'
+      summary: 'Service {{ $labels.instance }} - too many commands'
+  - alert: ProcessNearFDLimits
+    expr: process_open_fds / process_max_fds > 0.8
+    for: 10s
+    labels:
+      severity: 'critical'
+    annotations:
+      text: 'Process near FD limits'
+      description: '{{ $labels.instance }} process hits 80% of the limit'
+      summary: 'Service {{ $labels.instance }} - near fd limits'
+  - alert: HighCPUUsage
+    expr: avg by (instance) (irate(process_cpu_seconds_total[1m])) > 0.75
+    for: 15s
+    labels:
+      severity: 'critical'
+    annotations:
+      text: 'CPU Usage higher than 75%'
+      description: '{{ $labels.instance }} has high CPU Usage. More than 75%'
+      summary: 'Service {{ $labels.instance }} - higher than 75% CPU Usage'
